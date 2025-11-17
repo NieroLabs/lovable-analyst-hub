@@ -10,6 +10,7 @@ import {
 
 interface EditableCellProps {
   value: string | number | null;
+  suggestedValue?: string | number | null;
   type?: "text" | "number" | "select";
   options?: { id: number; nome: string }[];
   onSave: (value: string | number | null) => void;
@@ -17,12 +18,15 @@ interface EditableCellProps {
 
 export const EditableCell = ({
   value,
+  suggestedValue,
   type = "text",
   options,
   onSave,
 }: EditableCellProps) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [editValue, setEditValue] = useState(value?.toString() || "");
+  const [editValue, setEditValue] = useState(
+    (value ?? suggestedValue)?.toString() || ""
+  );
 
   const handleSave = () => {
     if (type === "number") {
