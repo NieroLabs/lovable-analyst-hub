@@ -1,8 +1,9 @@
 const N8N_WEBHOOK_URL =
-  "https://negociaai.app.n8n.cloud/webhook-test/106e6ae1-831a-4c46-9ac6-67952dc16132";
+  "https://negociaai.app.n8n.cloud/webhook-test/enviaPlanilha";
 
 export const uploadToN8N = async (file: File): Promise<void> => {
   const formData = new FormData();
+  formData.append("filename", file.name);
   formData.append("data", file);
 
   const response = await fetch(N8N_WEBHOOK_URL, {
