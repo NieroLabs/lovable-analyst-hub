@@ -13,6 +13,7 @@ export interface Elemento {
   id_gold_label: number | null;
   analise_id: number | null;
   gold_label_nome?: string | null;
+  gold_label_valor?: number | null;
 }
 
 export const getElementosByAnaliseId = async (
@@ -24,7 +25,8 @@ export const getElementosByAnaliseId = async (
       `
       *,
       financeiro_cadastro_procedimentos:id_gold_label (
-        nome
+        nome,
+        valor
       )
     `
     )
@@ -35,6 +37,7 @@ export const getElementosByAnaliseId = async (
   return (data || []).map((item: any) => ({
     ...item,
     gold_label_nome: item.financeiro_cadastro_procedimentos?.nome || null,
+    gold_label_valor: item.financeiro_cadastro_procedimentos?.valor || null,
   }));
 };
 
