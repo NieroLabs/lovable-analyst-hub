@@ -26,7 +26,7 @@ export const getElementosByAnaliseId = async (
       *,
       financeiro_cadastro_procedimentos:id_gold_label (
         nome,
-        valor
+        valor_minimo
       )
     `
     )
@@ -37,7 +37,7 @@ export const getElementosByAnaliseId = async (
   return (data || []).map((item: any) => ({
     ...item,
     gold_label_nome: item.financeiro_cadastro_procedimentos?.nome || null,
-    gold_label_valor: item.financeiro_cadastro_procedimentos?.valor || null,
+    gold_label_valor: item.financeiro_cadastro_procedimentos?.valor_minimo || null,
   }));
 };
 
