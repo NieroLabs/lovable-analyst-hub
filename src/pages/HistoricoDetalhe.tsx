@@ -70,6 +70,99 @@ const HistoricoDetalhe = () => {
     }
   };
 
+  const renderTable = (elementos: Elemento[], title: string) => (
+    <div className="bg-card border border-border rounded-lg shadow-lg overflow-auto mb-8">
+      <h2 className="text-xl font-bold text-foreground p-4">{title}</h2>
+      <Table>
+        <TableHeader>
+          <TableRow className="bg-muted/50">
+            <TableHead>Tipo de procedimento</TableHead>
+            <TableHead>Nome do procedimento</TableHead>
+            <TableHead>Frequência</TableHead>
+            <TableHead>Valor recebido</TableHead>
+            <TableHead>Custo unitário esperado</TableHead>
+            <TableHead>Propor valor</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {loading ? (
+            Array.from({ length: 5 }).map((_, i) => (
+              <TableRow key={i}>
+                {Array.from({ length: 6 }).map((_, j) => (
+                  <TableCell key={j}>
+                    <Skeleton className="h-8 w-full" />
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))
+          ) : elementos.length === 0 ? (
+            <TableRow>
+              <TableCell colSpan={6} className="text-center py-12">
+                <p className="text-muted-foreground">
+                  Nenhum elemento encontrado
+                </p>
+              </TableCell>
+            </TableRow>
+          ) : (
+            elementos.map((elemento) => (
+              <TableRow key={elemento.id} className="hover:bg-muted/30">
+                <TableCell>{elemento.tipo || "-"}</TableCell>
+                <TableCell className="font-medium">
+                  {elemento.nome || "-"}
+                </TableCell>
+                <TableCell>{elemento.freq || "-"}</TableCell>
+                <TableCell>{elemento.custo_unit || "-"}</TableCell>
+                <TableCell>{elemento.gold_label_valor || "-"}</TableCell>
+                <TableCell className="flex items-center gap-2">
+                  <EditableCell
+                    value={elemento.valor_proposto}
+                    suggestedValue={elemento.gold_label_valor}
+                    type="number"
+                    onSave={(val) =>
+                      handleUpdate(elemento.id, "valor_proposto", val)
+                    }
+                  />
+                  {elemento.gold_label_valor && (
+                    <Button
+                      size="sm"
+                      onClick={() =>
+                        handleUpdate(
+                          elemento.id,
+                          "valor_proposto",
+                          elemento.gold_label_valor
+                        )
+                      }
+                    >
+                      Aceitar
+                    </Button>
+                  )}
+                </TableCell>
+              </TableRow>
+            ))
+          )}
+        </TableBody>
+      </Table>
+    </div>
+  );
+
+  const elementosGoldLabelAcima = elementos.filter(
+    (el) =>
+      el.gold_label_valor &&
+      el.custo_unit &&
+      el.gold_label_valor >= el.custo_unit * 1.02
+  );
+
+  const elementosGoldLabelAbaixoOuIgual = elementos.filter(
+    (el) =>
+      el.gold_label_valor &&
+      el.custo_unit &&
+      el.gold_label_valor < el.custo_unit * 1.02
+  );
+
+  const elementosSemGoldLabel = elementos.filter(
+    (el) => !el.gold_label_valor
+  );
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-secondary/20">
       <div className="container mx-auto px-4 py-8">
@@ -88,98 +181,15 @@ const HistoricoDetalhe = () => {
           </div>
         </div>
 
-        <div className="bg-card border border-border rounded-lg shadow-lg overflow-auto">
-          <Table>
-            <TableHeader>
-              <TableRow className="bg-muted/50">
-                <TableHead>Tipo</TableHead>
-                <TableHead>Nome</TableHead>
-                <TableHead>Freq</TableHead>
-                <TableHead>Custo Unit.</TableHead>
-                <TableHead>Custo Total</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Valor Proposto</TableHead>
-                <TableHead>Gold Label</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {loading ? (
-                Array.from({ length: 5 }).map((_, i) => (
-                  <TableRow key={i}>
-                    {Array.from({ length: 8 }).map((_, j) => (
-                      <TableCell key={j}>
-                        <Skeleton className="h-8 w-full" />
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                ))
-              ) : elementos.length === 0 ? (
-                <TableRow>
-                  <TableCell colSpan={8} className="text-center py-12">
-                    <p className="text-muted-foreground">
-                      Nenhum elemento encontrado
-                    </p>
-                  </TableCell>
-                </TableRow>
-              ) : (
-                elementos.map((elemento) => (
-                  <TableRow key={elemento.id} className="hover:bg-muted/30">
-                    <TableCell>{elemento.tipo || "-"}</TableCell>
-                    <TableCell className="font-medium">
-                      {elemento.nome || "-"}
-                    </TableCell>
-                    <TableCell>{elemento.freq || "-"}</TableCell>
-                    <TableCell>
-                      <EditableCell
-                        value={elemento.custo_unit}
-                        type="number"
-                        onSave={(val) =>
-                          handleUpdate(elemento.id, "custo_unit", val)
-                        }
-                      />
-                    </TableCell>
-                    <TableCell>
-                      <EditableCell
-                        value={elemento.custo_total}
-                        type="number"
-                        onSave={(val) =>
-                          handleUpdate(elemento.id, "custo_total", val)
-                        }
-                      />
-                    </TableCell>
-                    <TableCell>
-                      <EditableCell
-                        value={elemento.status}
-                        onSave={(val) =>
-                          handleUpdate(elemento.id, "status", val)
-                        }
-                      />
-                    </TableCell>
-                    <TableCell>
-                      <EditableCell
-                        value={elemento.valor_proposto}
-                        type="number"
-                        onSave={(val) =>
-                          handleUpdate(elemento.id, "valor_proposto", val)
-                        }
-                      />
-                    </TableCell>
-                    <TableCell>
-                      <EditableCell
-                        value={elemento.id_gold_label}
-                        type="select"
-                        options={procedimentos}
-                        onSave={(val) =>
-                          handleUpdate(elemento.id, "id_gold_label", val)
-                        }
-                      />
-                    </TableCell>
-                  </TableRow>
-                ))
-              )}
-            </TableBody>
-          </Table>
-        </div>
+        {renderTable(
+          elementosGoldLabelAcima,
+          "Procedimentos com Gold Label 2% Acima"
+        )}
+        {renderTable(
+          elementosGoldLabelAbaixoOuIgual,
+          "Procedimentos com Gold Label Abaixo ou Igual"
+        )}
+        {renderTable(elementosSemGoldLabel, "Procedimentos Sem Gold Label")}
       </div>
     </div>
   );
