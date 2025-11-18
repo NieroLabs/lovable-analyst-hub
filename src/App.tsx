@@ -9,6 +9,7 @@ import Historicos from "./pages/Historicos";
 import HistoricoDetalhe from "./pages/HistoricoDetalhe";
 import CalcularImpacto from "./pages/CalcularImpacto";
 import NotFound from "./pages/NotFound";
+import Thornado from "./pages/rag/Thornado";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,7 @@ const App = () => (
             path="/historicos/:id/calcular-impacto"
             element={<CalcularImpacto />}
           />
+          <Route path="/rag/thornado" element={<Thornado />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
