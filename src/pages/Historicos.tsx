@@ -13,7 +13,14 @@ import {
 } from "@/components/ui/table";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import { FileText, Eye, Upload, ArrowLeft } from "lucide-react";
+import {
+  FileText,
+  Eye,
+  Upload,
+  ArrowLeft,
+  Calculator,
+  FilePlus,
+} from "lucide-react";
 import { toast } from "sonner";
 
 const Historicos = () => {
@@ -117,8 +124,18 @@ const Historicos = () => {
                         { locale: ptBR }
                       )}
                     </TableCell>
-                    <TableCell className="text-right">
+                    <TableCell className="text-right space-x-2">
                       <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() =>
+                          navigate(`/historicos/${analise.id}/calcular-impacto`)
+                        }
+                      >
+                        <Calculator className="w-4 h-4 mr-2" />
+                        Calcular Impacto
+                      </Button>
+                       <Button
                         variant="outline"
                         size="sm"
                         onClick={() => navigate(`/historicos/${analise.id}`)}
