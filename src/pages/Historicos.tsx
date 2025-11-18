@@ -135,17 +135,7 @@ const Historicos = () => {
                         <Calculator className="w-4 h-4 mr-2" />
                         Calcular Impacto
                       </Button>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() =>
-                          navigate(`/historicos/${analise.id}/gerar-proposta`)
-                        }
-                      >
-                        <FilePlus className="w-4 h-4 mr-2" />
-                        Gerar Proposta
-                      </Button>
-                      <Button
+                       <Button
                         variant="outline"
                         size="sm"
                         onClick={() => navigate(`/historicos/${analise.id}`)}
