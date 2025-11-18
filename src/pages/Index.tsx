@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Upload, History, FileSpreadsheet } from "lucide-react";
+import { Upload, History, FileSpreadsheet, MessageSquare } from "lucide-react";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -56,6 +56,24 @@ const Index = () => {
                 <History className="w-4 h-4 mr-2" />
                 Ver Histórico
               </Button>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-1 gap-6 max-w-3xl mx-auto mt-6">
+            <div className="bg-card border border-border rounded-lg shadow-lg p-8 hover:shadow-xl transition-all hover:scale-[1.02]">
+              <MessageSquare className="w-12 h-12 mx-auto mb-4 text-primary" />
+              <h2 className="text-2xl font-bold mb-3 text-foreground">
+                Protocolo THOrnaDO
+              </h2>
+              <p className="text-muted-foreground mb-6">
+                Converse com um agente especializado no protocolo THOrnaDO
+              </p>
+              <a href="/rag/thornado" className="w-full">
+                <Button size="lg" className="w-full">
+                  <MessageSquare className="w-4 h-4 mr-2" />
+                  Iniciar Chat
+                </Button>
+              </a>
             </div>
           </div>
 
