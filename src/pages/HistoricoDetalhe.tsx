@@ -80,8 +80,8 @@ const HistoricoDetalhe = () => {
             <TableHead>Nome do procedimento</TableHead>
             <TableHead>Frequência</TableHead>
             <TableHead>Valor recebido</TableHead>
-            <TableHead>Custo unitário esperado</TableHead>
-            <TableHead>Propor valor</TableHead>
+            <TableHead>Valor ideal</TableHead>
+            <TableHead>Valor proposto</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -122,20 +122,7 @@ const HistoricoDetalhe = () => {
                       handleUpdate(elemento.id, "valor_proposto", val)
                     }
                   />
-                  {elemento.gold_label_valor && (
-                    <Button
-                      size="sm"
-                      onClick={() =>
-                        handleUpdate(
-                          elemento.id,
-                          "valor_proposto",
-                          elemento.gold_label_valor
-                        )
-                      }
-                    >
-                      Aceitar
-                    </Button>
-                  )}
+
                 </TableCell>
               </TableRow>
             ))
