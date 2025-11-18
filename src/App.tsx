@@ -7,6 +7,8 @@ import Index from "./pages/Index";
 import Upload from "./pages/Upload";
 import Historicos from "./pages/Historicos";
 import HistoricoDetalhe from "./pages/HistoricoDetalhe";
+import CalcularImpacto from "./pages/CalcularImpacto";
+import GerarProposta from "./pages/GerarProposta";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,6 +24,14 @@ const App = () => (
           <Route path="/upload" element={<Upload />} />
           <Route path="/historicos" element={<Historicos />} />
           <Route path="/historicos/:id" element={<HistoricoDetalhe />} />
+          <Route
+            path="/historicos/:id/calcular-impacto"
+            element={<CalcularImpacto />}
+          />
+          <Route
+            path="/historicos/:id/gerar-proposta"
+            element={<GerarProposta />}
+          />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
