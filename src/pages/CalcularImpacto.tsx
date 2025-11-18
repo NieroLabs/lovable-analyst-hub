@@ -7,6 +7,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -67,6 +68,11 @@ const CalcularImpacto = () => {
       currency: "BRL",
     });
   };
+
+  const totalDiferenca = elementos.reduce(
+    (acc, el) => acc + el.diferenca_total,
+    0
+  );
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-secondary/20">
@@ -151,6 +157,22 @@ const CalcularImpacto = () => {
                 ))
               )}
             </TableBody>
+            {!loading && elementos.length > 0 && (
+              <TableFooter>
+                <TableRow>
+                  <TableCell colSpan={6} className="text-right font-bold">
+                    Impacto Total
+                  </TableCell>
+                  <TableCell
+                    className={`text-right font-bold ${
+                      totalDiferenca > 0 ? "text-green-500" : "text-red-500"
+                    }`}
+                  >
+                    {formatCurrency(totalDiferenca)}
+                  </TableCell>
+                </TableRow>
+              </TableFooter>
+            )}
           </Table>
         </div>
       </div>
