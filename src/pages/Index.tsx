@@ -1,15 +1,30 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Upload, History, FileSpreadsheet, MessageSquare } from "lucide-react";
+import { Upload, History, FileSpreadsheet, MessageSquare, LogOut } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Index = () => {
   const navigate = useNavigate();
+  const { logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-secondary/20">
       <div className="container mx-auto px-4 py-16">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="mb-12">
+          <div className="mb-12 relative">
+            <Button
+              onClick={handleLogout}
+              variant="outline"
+              size="icon"
+              className="absolute top-0 right-0"
+            >
+              <LogOut className="w-4 h-4" />
+            </Button>
             <FileSpreadsheet className="w-20 h-20 mx-auto mb-6 text-primary" />
             <h1 className="text-5xl font-bold text-foreground mb-4">
               Sistema de Análise de Dados
