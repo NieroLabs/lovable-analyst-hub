@@ -83,12 +83,15 @@ const Index = () => {
               <p className="text-muted-foreground mb-6">
                 Converse com um agente especializado no protocolo THOrnaDO
               </p>
-              <a href="/rag/thornado" className="w-full">
-                <Button size="lg" className="w-full">
-                  <MessageSquare className="w-4 h-4 mr-2" />
-                  Iniciar Chat
-                </Button>
-              </a>
+              <Button
+                onClick={() => navigate("/rag")}
+                size="lg"
+                variant="outline"
+                className="w-full"
+              >
+               <History className="w-4 h-4 mr-2" />
+                Abrir chat
+              </Button>
             </div>
           </div>
 
