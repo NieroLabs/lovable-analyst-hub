@@ -34,7 +34,7 @@ const App = () => (
                 path="/historicos/:id/calcular-impacto"
                 element={<CalcularImpacto />}
               />
-              <Route path="/rag/thornado" element={<Thornado />} />
+              <Route path="/rag" element={<Thornado />} />
             </Route>
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
