@@ -9,7 +9,7 @@ const Login = () => {
   const { login } = useAuth();
 
   const handleLogin = () => {
-    if (username === "sakajiri" && password === "saka@4599.123") {
+    if ((username === "sakajiri" && password === "saka@4599.123") || (username === "juan.gargiulo" && password === "juan@1189.32" )) {
       login("fake-token");
       navigate("/");
     } else {
